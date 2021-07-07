@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Torowanie/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/Torowanie/static/js/main.9ed95883.chunk.js",
-    "main.js.map": "/Torowanie/static/js/main.9ed95883.chunk.js.map",
+    "main.js": "/Torowanie/static/js/main.13a029dd.chunk.js",
+    "main.js.map": "/Torowanie/static/js/main.13a029dd.chunk.js.map",
     "runtime-main.js": "/Torowanie/static/js/runtime-main.9dd5bb68.js",
     "runtime-main.js.map": "/Torowanie/static/js/runtime-main.9dd5bb68.js.map",
     "static/css/2.65af8127.chunk.css": "/Torowanie/static/css/2.65af8127.chunk.css",
@@ -24,6 +24,6 @@
     "static/css/2.65af8127.chunk.css",
     "static/js/2.21c196b7.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.9ed95883.chunk.js"
+    "static/js/main.13a029dd.chunk.js"
   ]
 }
