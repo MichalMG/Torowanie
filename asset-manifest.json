@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/torowanie/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/torowanie/static/js/main.8192bb13.chunk.js",
+    "main.js.map": "/torowanie/static/js/main.8192bb13.chunk.js.map",
+    "runtime-main.js": "/torowanie/static/js/runtime-main.ec5ca928.js",
+    "runtime-main.js.map": "/torowanie/static/js/runtime-main.ec5ca928.js.map",
+    "static/css/2.65af8127.chunk.css": "/torowanie/static/css/2.65af8127.chunk.css",
+    "static/js/2.78aa3511.chunk.js": "/torowanie/static/js/2.78aa3511.chunk.js",
+    "static/js/2.78aa3511.chunk.js.map": "/torowanie/static/js/2.78aa3511.chunk.js.map",
+    "static/js/3.d2ebe709.chunk.js": "/torowanie/static/js/3.d2ebe709.chunk.js",
+    "static/js/3.d2ebe709.chunk.js.map": "/torowanie/static/js/3.d2ebe709.chunk.js.map",
+    "index.html": "/torowanie/index.html",
+    "static/css/2.65af8127.chunk.css.map": "/torowanie/static/css/2.65af8127.chunk.css.map",
+    "static/css/main.9d5b29c0.chunk.css.map": "/torowanie/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.78aa3511.chunk.js.LICENSE.txt": "/torowanie/static/js/2.78aa3511.chunk.js.LICENSE.txt",
+    "static/media/bike.38376db4.jpg": "/torowanie/static/media/bike.38376db4.jpg",
+    "static/media/bike2.25e2bb5c.jpg": "/torowanie/static/media/bike2.25e2bb5c.jpg",
+    "static/media/ticket.d6771080.png": "/torowanie/static/media/ticket.d6771080.png",
+    "static/media/tire.572e8354.jpg": "/torowanie/static/media/tire.572e8354.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ec5ca928.js",
+    "static/css/2.65af8127.chunk.css",
+    "static/js/2.78aa3511.chunk.js",
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.8192bb13.chunk.js"
+  ]
+}
