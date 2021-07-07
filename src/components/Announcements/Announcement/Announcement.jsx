@@ -1,5 +1,6 @@
-import { useContext } from "react"
-import reducerContext from "../../../context/reducerContext"
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import reducerContext from "../../../context/reducerContext";
 
 export default function Announcement(props) {
 
@@ -21,7 +22,7 @@ export default function Announcement(props) {
               </div>
               <div className="col-4 col-sm-3 d-flex flex-column justify-content-between">
                 <p className="mb-0 text-end">{props.price} zł</p>
-                <button className={`btn btn-${state.theme} ms-auto`} >Pokaż</button>
+                <Link to={`/announcement/${props.id}`} className={`btn btn-${state.theme} ms-auto`} >Pokaż</Link>
               </div>
             </div>
           </div>

@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import reducerContext from "../../context/reducerContext";
 import useAuth from "../../hooks/useAuth";
 
 export default function Navbar() {
 
   const [user, setUser] = useAuth();
   const history = useHistory();
+  const { state } = useContext(reducerContext);
 
   const logoutHandler = () => {
     setUser(null);
@@ -42,7 +45,7 @@ export default function Navbar() {
                     </ul>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="btn btn-outline-info ms-3" to="/newAnnouncement">Dodaj ogłoszenie</NavLink>
+                    <NavLink className={`btn btn-outline-${state.theme} ms-3`} to="/newAnnouncement">Dodaj ogłoszenie</NavLink>
                   </li>
                 </>)
                 : (<>

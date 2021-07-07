@@ -29,6 +29,7 @@ export default function AuthForm(props) {
       email: form.email.value,
       password: form.password.value
     });
+    setLoading(false);
   }
 
   const changeHandler = (value, type) => {

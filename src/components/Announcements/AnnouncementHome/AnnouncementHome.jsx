@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import reducerContext from "../../../context/reducerContext";
+
 export default function Announcement(props) {
+
+  const { state } = useContext(reducerContext);
 
   return (
     <div className="col-3 my-1">
@@ -13,7 +19,7 @@ export default function Announcement(props) {
             <p className="text-muted text-end">{props.city}, {props.date}</p>
             <div className="d-flex justify-content-between align-items-center">
               <span className="badge bg-secondary fs-6">{props.price}</span>
-              <a href="#" className="btn btn-primary btn-sm">Sprawdź!</a>
+              <Link to={`/announcement/${props.id}`} className={`btn btn-${state.theme} ms-auto`} >Pokaż</Link>
             </div>
           </div>
         </div>

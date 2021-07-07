@@ -22,6 +22,7 @@ import Registration from './pages/Auth/Registration/Registration';
 import AuthRouteTrue from './components/AuthRoute/AuthRouteTrue';
 import AuthRouteFalse from './components/AuthRoute/AuthRouteFalse';
 import ProfileAnnouncements from './pages/Profile/Announcements/ProfileAnnouncements';
+import Announcement from './pages/Announcement/Announcement';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -41,6 +42,7 @@ function App() {
         <Searchbar />
         <Motorcycles />
       </Route>
+      <Route path="/announcement/:id" component={Announcement} />
       <Route path="/tires" >
         <Searchbar />
         <Tires />

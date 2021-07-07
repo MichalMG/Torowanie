@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useHistory } from "react-router-dom";
+import reducerContext from "../../../context/reducerContext";
 
 export default function Searchbar() {
 
   const [term, setTerm] = useState('');
   const history = useHistory();
+  const { state } = useContext(reducerContext);
 
   const formHandler = e => {
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function Searchbar() {
               </svg>
             </span>
             <input type="text" className="form-control shadow-none" placeholder="wyszukaj..." value={term} onChange={(e) => setTerm(e.target.value)} />
-            <button type="submit" className="btn btn-info ms-2">Wyszukaj</button>
+            <button type="submit" className={`btn btn-${state.theme} ms-2`}>Wyszukaj</button>
           </div>
         </form>
       </div>

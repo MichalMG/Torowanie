@@ -130,7 +130,7 @@ export default function NewAnnouncement() {
       }
       await axios.post('/announcements.json', announcementInfo);
       setLoading(false);
-      history.push('/')
+      history.push(`/profile/announcements/${user.localId}`)
     } catch (ex) {
       setLoading(false);
       console.log(ex.response)

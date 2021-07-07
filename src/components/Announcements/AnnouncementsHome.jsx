@@ -1,20 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
-import reducerContext from '../../context/reducerContext';
+import { useEffect, useState } from 'react';
 import getAllAnnouncements from '../../helpers/getAllAnnouncements';
 import AnnouncementHome from './AnnouncementHome/AnnouncementHome';
 
 
 export default function AnnouncementsHome() {
-
-  const { state } = useContext(reducerContext);
-
-  const promotedAnnouncements = [...state.announcements].filter(x => x.promoted);
-
   const [promoted, setPromoted] = useState([]);
 
   const getPromoted = async () => {
     try {
-
       const allAnnouncements = await getAllAnnouncements();
       const newArray = [...allAnnouncements].filter(x => x.promoted).splice(0, 4);
       setPromoted(newArray)

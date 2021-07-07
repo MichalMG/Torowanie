@@ -69,14 +69,18 @@ const announcements = [{
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'login':
-      return { ...state, user: action.user }
-    case 'logout':
-      return { ...state, user: null }
+      return {
+        ...state, user: action.user
+      }
+      case 'logout':
+        return {
+          ...state, user: null
+        }
   }
 }
 
 export const initialState = {
   user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : null,
-  theme: 'info',
+  theme: 'warning',
   announcements: announcements
 }

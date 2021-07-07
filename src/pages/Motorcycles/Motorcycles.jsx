@@ -15,7 +15,8 @@ export default function Motorcycle() {
       setMotorcyclesArray(allMotorcycles);
       setLoading(false);
     } catch (ex) {
-
+      console.log(ex.response);
+      setLoading(false);
     }
   }
 
