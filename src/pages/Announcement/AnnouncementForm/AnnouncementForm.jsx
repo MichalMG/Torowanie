@@ -12,7 +12,7 @@ export default function AnnouncementForm(props) {
     <div className="container my-2">
       <div className="row">
 
-        <div className="col-12 col-md-8">
+        <div className="col-12 col-lg-8">
           <div className="row">
             <div className="col-12">
               <div className="card">
@@ -59,7 +59,7 @@ export default function AnnouncementForm(props) {
           </div>
         </div>
 
-        <div className="col-12 col-md-4 mt-2 mt-md-0">
+        <div className="col-12 col-lg-4 mt-2 mt-lg-0">
           <div className="row">
             <div className="col-12">
               <div className="card">
