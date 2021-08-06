@@ -4,12 +4,14 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import Announcements from "../../components/Announcements/Announcements";
 import axios from '../../axiosDB';
 import objectIdToArray from "../../helpers/objectIdToArray";
+import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 
 export default function Search() {
 
   const [search, setSearch] = useState([]);
   const [loading, setLoading] = useState(true);
   const { term } = useParams();
+  useWebsiteTitle(`Wyszukiwanie: ${term}`)
 
   const getSearch = async () => {
     setLoading(true);
@@ -28,12 +30,7 @@ export default function Search() {
 
   useEffect(() => {
     getSearch();
-    // setTimeout(() => {
-    //   const newArrayAnnouncements = [...state.announcements].filter(x => x.title.toLowerCase().includes(term.toLowerCase()));
-    //   setSearch(newArrayAnnouncements);
-    //   setLoading(false);
-    // }, 1000)
-  }, [])
+  }, [term])
 
   return (
     <>

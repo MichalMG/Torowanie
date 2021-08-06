@@ -3,29 +3,30 @@ import axiosAuth from '../../../axiosAuth';
 import useAuth from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 
 export default function Login() {
 
   const [user, setUser] = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  useWebsiteTitle("Logowanie");
 
   const onSubmitFormHandler = async ({ email, password }) => {
     setErrorMessage('');
+    setLoading(true);
     try {
       const loginUser = await axiosAuth.post('/accounts:signInWithPassword', {
         email,
         password
       })
-
-      setUser({
-        email: loginUser.data.email,
-        token: loginUser.data.idToken,
-        localId: loginUser.data.localId,
-      });
+      setUser(loginUser.data);
+      setLoading(false);
       history.push('/');
 
     } catch (ex) {
+      setLoading(false);
       const error = ex.response.data.error.message;
       if (error === "EMAIL_NOT_FOUND") {
         setErrorMessage("Brak adresu email w bazie");
@@ -46,6 +47,7 @@ export default function Login() {
         onSubmitFormHandler={(form) => onSubmitFormHandler(form)}
         btnTitle="Zaloguj"
         formName="Logowanie"
+        loading={loading}
       />
 
     </div>

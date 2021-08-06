@@ -81,6 +81,6 @@ export const reducer = (state, action) => {
 
 export const initialState = {
   user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : null,
-  theme: 'warning',
+  theme: 'info',
   announcements: announcements
 }

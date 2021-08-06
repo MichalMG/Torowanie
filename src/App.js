@@ -4,8 +4,6 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Searchbar from './components/UI/Searchbar/Searchbar';
-import Category from './components/Category/Category';
-import Announcements from './components/Announcements/AnnouncementsHome';
 import Footer from './components/Footer/Footer';
 import Layout from './components/Layout/Layout';
 import Search from './pages/Search/Search';
@@ -13,7 +11,6 @@ import Tickets from './pages/Trackdays/Trackdays';
 import Tires from './pages/Tires/Tires';
 import Motorcycles from './pages/Motorcycles/Motorcycles';
 import Login from './pages/Auth/Login/Login';
-import NewAnnouncement from './pages/NewAnnouncement/NewAnnouncement';
 import AuthContext from './context/authContext';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
@@ -23,6 +20,10 @@ import AuthRouteTrue from './components/AuthRoute/AuthRouteTrue';
 import AuthRouteFalse from './components/AuthRoute/AuthRouteFalse';
 import ProfileAnnouncements from './pages/Profile/Announcements/ProfileAnnouncements';
 import Announcement from './pages/Announcement/Announcement';
+import Home from './pages/Home/Home';
+import EditAnnouncement from './pages/AnnouncementHandler/EditAnnouncement/EditAnnouncement';
+import NewAnnouncement from './pages/AnnouncementHandler/NewAnnouncement/NewAnnouncement';
+import UpdateUser from './pages/Profile/UpdateUser/UpdateUser';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -34,7 +35,9 @@ function App() {
 
   const content = (
     <Switch>
+      <AuthRouteTrue path="/edit/:id" component={EditAnnouncement} />
       <AuthRouteTrue path="/newAnnouncement" component={NewAnnouncement} />
+      <AuthRouteTrue path="/profile/update" component={UpdateUser} />
       <AuthRouteTrue path="/profile/announcements/:localId?" component={ProfileAnnouncements} />
       <AuthRouteFalse path="/registration" component={Registration} />
       <AuthRouteFalse path="/login" component={Login} />
@@ -55,13 +58,7 @@ function App() {
         <Searchbar />
         <Search />
       </Route>
-      <Route exact path="/">
-        <>
-          <Searchbar />
-          <Category />
-          <Announcements />
-        </>
-      </Route>
+      <Route exact path="/" component={Home} />
     </Switch>
 
   )

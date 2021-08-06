@@ -18,7 +18,7 @@ export default function AnnouncementsHome() {
 
   useEffect(() => {
     getPromoted();
-  })
+  }, [])
 
   return (
     <section className="bg-light">

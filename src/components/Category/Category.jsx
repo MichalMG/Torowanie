@@ -19,7 +19,7 @@ export default function Category() {
     id: 3,
     title: 'Motocykle',
     image: bike,
-    path: 'motorcycles'
+    path: '/motorcycles'
   }]
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input/Input";
 import validation from "../../helpers/validation";
 import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
@@ -7,7 +7,7 @@ import axios from '../../axiosDB';
 import { useHistory } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-export default function NewAnnouncement() {
+export default function NewAnnouncement(props) {
 
   const [user] = useAuth();
   const [loading, setLoading] = useState(false);
@@ -68,10 +68,16 @@ export default function NewAnnouncement() {
       rules: ['required']
     },
     photo: {
-      url: '',
+      url: props.announcement ? props.announcement.photo : '',
       isValid: false,
       invalidMessage: '',
-      validMessage: ''
+      validMessage: '',
+      rules: []
+    },
+    negotiable: {
+      value: false,
+      isValid: true,
+      rules: []
     }
   })
 
@@ -96,14 +102,11 @@ export default function NewAnnouncement() {
     uploadTask.on('state_changed',
       (snapshot) => { },
       (error) => {
-        // Handle unsuccessful uploads
         console.log(error);
         setForm({ ...form, photo: { ...form.photo, isValid: false, invalidMessage: 'Coś poszło nie tak, próbuj jeszcze raz', validMessage: '' } });
         setLoadingPhoto(false);
       },
       () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           setForm({ ...form, photo: { ...form.photo, url: downloadURL, isValid: true, validMessage: 'zdjęcie zostało dodane', invalidMessage: '' } });
           setLoadingPhoto(false);
@@ -112,10 +115,13 @@ export default function NewAnnouncement() {
   }
 
   const formHandler = async e => {
-    setLoading(true);
     e.preventDefault();
+
+    const date = new Date();
+
+    setLoading(true);
     try {
-      const announcementInfo = {
+      const announcementData = {
         title: form.title.value,
         city: form.city.value,
         price: form.price.value,
@@ -126,16 +132,48 @@ export default function NewAnnouncement() {
         phone: form.phone.value,
         name: form.name.value,
         photo: form.photo.url,
+        negotiable: form.negotiable.value,
         userId: user.localId
       }
-      await axios.post('/announcements.json', announcementInfo);
+
+      if (!props.announcement) {
+        announcementData.date = date.toLocaleString();
+      }
+
+      // await axios.post('/announcements.json', announcementInfo);
+      await props.onSubmit(announcementData);
       setLoading(false);
       history.push(`/profile/announcements/${user.localId}`)
     } catch (ex) {
       setLoading(false);
-      console.log(ex.response)
+      console.log(ex.response);
     }
   }
+
+  const setEditAnnouncement = () => {
+    if (!props.announcement) return;
+
+    const editAnnouncement = { ...props.announcement };
+    const editForm = { ...form };
+
+    delete editAnnouncement.userId;
+    delete editAnnouncement.date;
+
+    for (let item in editAnnouncement) {
+      if (item !== "photo") {
+        editForm[item].value = editAnnouncement[item];
+        editForm[item].isValid = true;
+      }
+    }
+    editForm.photo.url = props.announcement.photo;
+    editForm.photo.isValid = true;
+
+    setForm(editForm);
+  }
+
+  useEffect(() => {
+    setEditAnnouncement();
+  }, [props.announcement])
 
   const btnDisabledHandler = !(Object.values(form).filter(x => !x.isValid).length === 0);
 
@@ -144,7 +182,7 @@ export default function NewAnnouncement() {
     <div className="container">
       <div className="card my-2">
         <div className="card-header">
-          <h4>Dodaj nowe ogłoszenie</h4>
+          <h4>{props.title}</h4>
         </div>
         <div className="card-body">
           <form onSubmit={formHandler} className="my-2">
@@ -169,6 +207,7 @@ export default function NewAnnouncement() {
                   onChange={val => changeHandler(val, 'price')}
                 />
               </div>
+
               <div className="col-6">
                 <div className="mb-2">
                   <p className="mb-2">Kategoria</p>
@@ -186,21 +225,37 @@ export default function NewAnnouncement() {
                   />
                 </div>
               </div>
+
+              <div className="col-12">
+
+                <Input
+                  type="checkbox"
+                  name="negotiable-announcement"
+                  label="Cena do negocjacji"
+                  value={form.negotiable.value}
+                  onChange={val => changeHandler(val, 'negotiable')}
+                />
+              </div>
+
             </div>
 
-            <div className="my-2">
-              <p className="mb-2">Dodaj zdjęcie</p>
-              <Input
-                type="file"
-                name="photo-announcement"
-                onChange={(img) => imgHandler(img)}
-                loading={loadingPhoto}
-                invalidMessage={form.photo.invalidMessage}
-                validMessage={form.photo.validMessage}
-                isValid={form.photo.isValid}
-              />
-              <p className="text-muted"><small>*aby dodać ogłoszenie musisz wysłać zdjęcie</small></p>
-            </div>
+            {props.announcement
+              ? null
+              : (
+                <div className="my-2">
+                  <p className="mb-2">Dodaj zdjęcie</p>
+                  <Input
+                    type="file"
+                    name="photo-announcement"
+                    onChange={(img) => imgHandler(img)}
+                    loading={loadingPhoto}
+                    invalidMessage={form.photo.invalidMessage}
+                    validMessage={form.photo.validMessage}
+                    isValid={form.photo.isValid}
+                  />
+                  <p className="text-muted"><small>*aby dodać ogłoszenie musisz dodać zdjęcie</small></p>
+                </div>
+              )}
 
             <Input
               type="textarea"
@@ -213,7 +268,7 @@ export default function NewAnnouncement() {
             />
 
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <Input
                   type="text"
                   label="Imię"
@@ -224,7 +279,7 @@ export default function NewAnnouncement() {
                   onChange={val => changeHandler(val, 'name')}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <Input
                   type="text"
                   label="Telefon"
@@ -235,7 +290,7 @@ export default function NewAnnouncement() {
                   onChange={val => changeHandler(val, 'phone')}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <Input
                   type="email"
                   label="Email"
@@ -246,7 +301,7 @@ export default function NewAnnouncement() {
                   onChange={val => changeHandler(val, 'email')}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-sm-6">
                 <Input
                   type="text"
                   label="Miasto"
@@ -275,13 +330,13 @@ export default function NewAnnouncement() {
             </div>
 
             <LoadingButton
-              title="Dodaj ogłoszenie"
+              title={props.btnLabel}
               disabled={btnDisabledHandler}
               loading={loading}
             />
           </form>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

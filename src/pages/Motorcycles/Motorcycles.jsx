@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Announcements from "../../components/Announcements/Announcements";
 import getAllAnnouncements from "../../helpers/getAllAnnouncements";
+import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 
 export default function Motorcycle() {
 
   const [motorcyclesArray, setMotorcyclesArray] = useState([]);
   const [loading, setLoading] = useState(true);
+  useWebsiteTitle("Motocykle");
 
   const getMotorcycles = async () => {
     try {
@@ -22,19 +24,17 @@ export default function Motorcycle() {
 
   useEffect(() => {
     getMotorcycles();
-    // setLoading(true);
-    // setTimeout(() => {
-    //   const newArray = [...state.announcements].filter(x => x.category === 'motorcycles');
-    //   setAnnouncementsArray(newArray);
-    //   setLoading(false);
-    // }, 2000)
   }, [])
 
   return (
     <div className="container">
-      {loading ? <Spinner /> : (
-        <Announcements announcements={motorcyclesArray} />
-      )}
+      {loading
+        ? <Spinner />
+        : motorcyclesArray.length === 0
+          ? (<div className="alert alert-warning">
+            <p className="mb-0">Aktualnie brak ogłoszeń w kategorii motocykle</p>
+          </div>)
+          : <Announcements announcements={motorcyclesArray} />}
     </div>
   )
 }

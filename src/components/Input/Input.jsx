@@ -58,7 +58,7 @@ const InputFile = props => {
         <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
         Ładowannie...
       </button>
-      ) : (<button className={`btn btn-outline-${state.theme} ${props.invalidMessage ? 'is-invalid' : ''} ${props.validMessage ? 'is-valid' : ''}`} type="button" id={`input-${props.name}`} onClick={fileHandler}>Wyślij</button>
+      ) : (<button className={`btn btn-outline-${state.theme} ${props.invalidMessage ? 'is-invalid' : ''} ${props.validMessage ? 'is-valid' : ''}`} type="button" id={`input-${props.name}`} onClick={fileHandler}>Dodaj</button>
       )}
       <div className="valid-feedback">{props.validMessage}</div>
       <div className="invalid-feedback">{props.invalidMessage}</div>
@@ -66,12 +66,23 @@ const InputFile = props => {
   )
 }
 
+const InputCheckbox = props => {
+
+  return (
+    <div className="form-check form-switch">
+      <input className="form-check-input" type="checkbox" id={`announcement-${props.name}`} checked={props.value} onChange={() => props.onChange(!props.value)} />
+      <label className="form-check-label" htmlFor={`announcement-${props.name}`}>{props.label}</label>
+    </div>
+  )
+}
 
 export default function Input(props) {
 
   switch (props.type) {
     case 'text':
       return <InputText {...props} />
+    case 'checkbox':
+      return <InputCheckbox {...props} />
     case 'email':
       return <InputText {...props} type="email" />
     case 'number':
