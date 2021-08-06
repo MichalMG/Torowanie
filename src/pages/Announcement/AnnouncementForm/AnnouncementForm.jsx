@@ -32,8 +32,7 @@ export default function AnnouncementForm(props) {
                     </div>
                     <div className="col-12">
                       <p className="mb-0">
-                        Cena:
-                        <span className="fw-bold">{parseInt(props.price).toLocaleString()} zł</span>
+                        Cena:<span className="fw-bold"> {parseInt(props.price).toLocaleString()} zł</span>
                         {props.negotiable
                           ? <span className="text-muted"><small>, do negocjacji</small></span>
                           : null}
